@@ -8,6 +8,7 @@ const Button = (props) => {
             type={props.type}
             size={props.size}
             block
+            onClick={() => props.action()}
         >
             {props.name}
         </ButtonBS>
