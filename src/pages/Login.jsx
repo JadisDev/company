@@ -1,4 +1,5 @@
 import React from 'react'
+import {useHistory} from 'react-router-dom'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Form from "react-bootstrap/Form"
@@ -8,6 +9,9 @@ import Input from '../components/Input'
 import Button from '../components/Button'
 
 const Login = (props) => {
+    
+    const history = useHistory()
+
     return (
         <div className="d-flex justify-content-center">
             <Form>
@@ -45,6 +49,7 @@ const Login = (props) => {
                             type="button"
                             name="Cadastra-se"
                             size="lg"
+                            action={() => history.push('signup')}
                         />
                     </Col>
                 </Row>
