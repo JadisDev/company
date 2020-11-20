@@ -6,8 +6,8 @@ const API_KEY = "AIzaSyD-Pid2nVCHl5cQxM1E6OJFKl17daEv0fs"  // how to get key - s
 
 const Address = () => {
 
-    const [lat, setLat] = useState()
-    const [lng, setLng] = useState()
+    const [lat, setLat] = useState(40.854885)
+    const [lng, setLng] = useState(-88.081807)
 
     const setLatLng = (object) => {
         console.log(object.coordinates)
