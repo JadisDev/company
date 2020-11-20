@@ -1,25 +1,35 @@
-import React, { useState }  from 'react'
+import React, { useState } from 'react'
 import DataTable from 'react-data-table-component';
 import Button from '../components/Button'
 import ModalEditCompany from './ModalEditCompany'
+import ModalSaveCompany from './ModalNewCompany'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 
 const ListCompany = () => {
 
     const [show, setShow] = useState(false);
-
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const edit = (id) => {
+    const [showNewModal, setNewModal] = useState(false);
+    const handleNewClose = () => setNewModal(false);
+    const handleNewShow = () => setNewModal(true);
+
+    const newCompany = () => {
+        handleNewShow();
+    }
+
+    const editCompany = (id) => {
         handleShow();
         console.warn(id);
     }
 
-    const remove = (id) => {
+    const removeCompany = (id) => {
         console.warn(id);
     }
 
-    const map = (id) => {
+    const mapCompany = (id) => {
         console.warn(id);
     }
 
@@ -40,7 +50,7 @@ const ListCompany = () => {
                     type="button"
                     variant="primary"
                     size="sm"
-                    action={() => edit(row.id)}
+                    action={() => editCompany(row.id)}
                     name="Editar"
                 >
                 </Button>
@@ -54,7 +64,7 @@ const ListCompany = () => {
                     type="button"
                     variant="danger"
                     size="sm"
-                    action={() => remove(row.id)}
+                    action={() => removeCompany(row.id)}
                     name="Remover"
                 >
                 </Button>
@@ -68,7 +78,7 @@ const ListCompany = () => {
                     type="button"
                     variant="warning"
                     size="sm"
-                    action={() => map(row.id)}
+                    action={() => mapCompany(row.id)}
                     name="Mapa"
                 >
                 </Button>
@@ -84,17 +94,40 @@ const ListCompany = () => {
 
     return (
         <div>
+
+            <div className="d-flex justify-content-end">
+                <div className="p-2 col-example text-left">
+                    <Button
+                        type="submit"
+                        variant="success"
+                        size="sm"
+                        action={() => handleNewShow()}
+                        name="Adicionar nova empresa"
+                        style={{}}
+                    >
+                    </Button>
+                </div>
+            </div>
+
             <DataTable
                 title="Lista - Empresas"
                 columns={columns}
                 data={data}
                 pagination
             />
+
             <ModalEditCompany
                 show={show}
                 handleClose={handleClose}
                 title="Editar - Empresa"
             />
+
+            <ModalSaveCompany
+                showNewModal={showNewModal}
+                handleNewClose={handleNewClose}
+                title="Cadastrar nova empresa"
+            />
+
         </div>
     )
 }
