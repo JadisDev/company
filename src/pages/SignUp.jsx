@@ -14,17 +14,6 @@ import * as yup from 'yup';
 
 const SiginUp = (props) => {
 
-    const validateConfirmPassword = (pass, value) => {
-        let error = "";
-        if (pass && value) {
-            if (pass !== value) {
-                error = "Senha não combina";
-            }
-        }
-        console.log(error);
-        return error;
-    };
-
     const schema = yup.object({
         name: yup.string().min(3, 'Nome muito curto').required('Obrigatório'),
         username: yup.string().min(3, 'Login muito curto').required('Obrigatório'),

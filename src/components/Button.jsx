@@ -3,7 +3,8 @@ import ButtonBS from 'react-bootstrap/Button'
 
 const Button = (props) => {
     return (
-        <ButtonBS
+        <ButtonBS 
+            style={props.style}
             variant={props.variant}
             type={props.type}
             size={props.size}
