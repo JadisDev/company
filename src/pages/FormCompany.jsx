@@ -7,7 +7,7 @@ import Button from '../components/Button'
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import MapContainer from '../components/Map'
-
+import Address from '../components/Address'
 
 const FormCompany = (props) => {
 
@@ -39,7 +39,7 @@ const FormCompany = (props) => {
                     errors,
                 }) => (
                         <div>
-                            <Form noValidate onSubmit={handleSubmit}>
+                            <Form noValidate onSubmit={handleSubmit}>                                
                                 <Form.Row>
                                     <Form.Group as={Col} md="6" controlId="validationFormik103">
                                         <Label label="Empresa" />
@@ -76,14 +76,19 @@ const FormCompany = (props) => {
                                         <Form.Control.Feedback >Tudo ok!</Form.Control.Feedback>
                                     </Form.Group>
                                 </Form.Row>
-                                <MapContainer></MapContainer>
+                                <Form.Row>
+                                    <Form.Group as={Col} md="12" controlId="validationFormik104" style={{"heigth": "600px"}}>
+                                        <Label label="Onde esta sua empresa?" />
+                                        <Address></Address>
+                                    </Form.Group>
+                                </Form.Row>
                                 <Button
                                     type="submit"
                                     variant="success"
                                     size="lg"
                                     action={() => { }}
                                     name={props.action}
-                                    style={{"margin-top": "250px"}}
+                                    style={{ "marginTop": "250px" }}
                                 >
                                 </Button>
                             </Form>

@@ -11,7 +11,7 @@ const ModalEditCompany = (props) => {
                 <Modal.Header closeButton>
                     <Modal.Title>{props.title}</Modal.Title>
                 </Modal.Header>
-                <Modal.Body style={{height: "440px"}}>
+                <Modal.Body style={{height: "510px"}}>
                     <FormCompany action="Alterar" />
                 </Modal.Body>
             </Modal>
