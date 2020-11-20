@@ -3,8 +3,6 @@ import DataTable from 'react-data-table-component';
 import Button from '../components/Button'
 import ModalEditCompany from './ModalEditCompany'
 import ModalSaveCompany from './ModalNewCompany'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
 
 const ListCompany = () => {
 
