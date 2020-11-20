@@ -135,7 +135,7 @@ const SiginUp = (props) => {
                             </Form.Row>
                             <Button
                                 type="submit"
-                                variant="outline-primary"
+                                variant="success"
                                 size="lg"
                                 action={() => { }}
                                 name="Cadastre-se"
