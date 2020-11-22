@@ -3,8 +3,12 @@ import DataTable from 'react-data-table-component';
 import Button from '../components/Button'
 import ModalEditCompany from './ModalEditCompany'
 import ModalSaveCompany from './ModalNewCompany'
+import {connect} from 'react-redux'
+import { logout } from '../auth/authAction'
+import { propTypes } from 'react-bootstrap/esm/Image';
 
-const ListCompany = () => {
+
+const ListCompany = (props) => {
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -96,11 +100,22 @@ const ListCompany = () => {
             <div className="d-flex justify-content-end">
                 <div className="p-2 col-example text-left">
                     <Button
-                        type="submit"
+                        type="button"
                         variant="success"
                         size="sm"
                         action={() => newCompany()}
                         name="Adicionar nova empresa"
+                        style={{}}
+                    >
+                    </Button>
+                </div>
+                <div className="p-2 col-example text-left">
+                    <Button
+                        type="button"
+                        variant="danger"
+                        size="sm"
+                        action={() => props.dispatchLogout()}
+                        name="Logout"
                         style={{}}
                     >
                     </Button>
@@ -130,4 +145,13 @@ const ListCompany = () => {
     )
 }
 
-export default ListCompany
+function mapDispatchProp(dispatch) {
+    return {
+        dispatchLogout() {
+            const actionLogin = logout()
+            dispatch(actionLogin)
+        }
+    }
+}
+
+export default connect(null, mapDispatchProp)(ListCompany)
