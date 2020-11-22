@@ -7,6 +7,8 @@ import Button from '../components/Button'
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import Address from '../components/Address'
+import {connect} from 'react-redux'
+import {saveCompany} from '../company/companyAction'
 
 const FormCompany = (props) => {
 
@@ -15,13 +17,16 @@ const FormCompany = (props) => {
         cnpj: yup.string().required('Obrigatório').min(14, 'cnpj deve ter 14 caracters').max(14, 'cnpj deve ter 14 caracters')
     });
 
+    const {lat, lng} = props
+
     return (
         <div>
             <Formik
                 validationSchema={schema}
                 onSubmit={values => {
-                    // same shape as initial values
-                    console.log(values);
+                    values['lat'] = lat
+                    values['lng'] = lng
+                    props.dispatchSaveCompany(values)
                 }}
                 initialValues={{
                     name: '',
@@ -38,7 +43,7 @@ const FormCompany = (props) => {
                     errors,
                 }) => (
                         <div>
-                            <Form noValidate onSubmit={handleSubmit}>                                
+                            <Form noValidate onSubmit={handleSubmit}>
                                 <Form.Row>
                                     <Form.Group as={Col} md="6" controlId="validationFormik103">
                                         <Label label="Empresa" />
@@ -61,7 +66,7 @@ const FormCompany = (props) => {
                                         <Label label="CNPJ" />
                                         <Input
                                             type="text"
-                                            placeholder="Informe seu login"
+                                            placeholder="Informe o cnpj da empresa"
                                             name="cnpj"
                                             onChange={handleChange}
                                             isValid={touched.cnpj && !errors.cnpj}
@@ -98,4 +103,20 @@ const FormCompany = (props) => {
     )
 }
 
-export default FormCompany
+function mapStateToProp(state) {
+    return {
+        lat: state.coordenate.lat,
+        lng: state.coordenate.lng
+    }
+}
+
+function mapsDipatchToProp (dispatch) {
+    return {
+        dispatchSaveCompany(values) {
+            const actioSaveCompany = saveCompany(values)
+            dispatch(actioSaveCompany)
+        }
+    }
+}
+
+export default connect(mapStateToProp, mapsDipatchToProp)(FormCompany)

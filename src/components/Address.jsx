@@ -1,22 +1,14 @@
 import { GoogleComponent } from 'react-google-location'
 import MapContainer from './Map'
-import React, { useState } from 'react';
+import React from 'react';
+import {connect} from 'react-redux'
+import {coordenate} from '../coordenate/CoodenateAction'
 
 const API_KEY = "AIzaSyD-Pid2nVCHl5cQxM1E6OJFKl17daEv0fs"  // how to get key - step are below
 
-const Address = () => {
+const Address = (props) => {
 
-    const [lat, setLat] = useState(40.854885)
-    const [lng, setLng] = useState(-88.081807)
-
-    const setLatLng = (object) => {
-        console.log(object.coordinates)
-
-        if (object.coordinates !== "") {
-            setLat(object.coordinates.lat)
-            setLng(object.coordinates.lng)
-        }
-    }
+    const {lat, lng} = props
 
     return (
         <div>
@@ -29,7 +21,7 @@ const Address = () => {
                     coordinates={true}
                     //   locationBoxStyle={'custom-style'}
                     //   locationListStyle={'custom-style-list'}
-                    onChange={(e) => { setLatLng(e) }} />
+                    onChange={(e) => { props.dispatchCoodenate(e) }} />
             </div>
 
             <MapContainer
@@ -42,4 +34,19 @@ const Address = () => {
     )
 }
 
-export default Address
+function mapStateToProp(state) {
+    return {
+        lat: state.coordenate.lat,
+        lng: state.coordenate.lng
+    }
+}
+function mapsDipatchToProp (dispatch) {
+    return {
+        dispatchCoodenate(object) {
+            const actionCoordenate = coordenate(object)
+            dispatch(actionCoordenate)
+        }
+    }
+}
+
+export default connect(mapStateToProp, mapsDipatchToProp)(Address)

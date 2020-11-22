@@ -1,14 +1,22 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import DataTable from 'react-data-table-component';
 import Button from '../components/Button'
 import ModalEditCompany from './ModalEditCompany'
 import ModalSaveCompany from './ModalNewCompany'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import { logout } from '../auth/authAction'
 import { propTypes } from 'react-bootstrap/esm/Image';
 import User from '../components/User'
+import {getCompany} from '../company/companyAction'
 
 const ListCompany = (props) => {
+
+    
+
+    useEffect(() => {
+        props.getCompanys()
+        console.log('teste')
+    });
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -152,6 +160,11 @@ function mapDispatchProp(dispatch) {
         dispatchLogout() {
             const actionLogin = logout()
             dispatch(actionLogin)
+        },
+
+        getCompanys() {
+            const actionCompany = getCompany()
+            dispatch(actionCompany)
         }
     }
 }

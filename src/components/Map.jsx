@@ -1,5 +1,3 @@
-// https://www.youtube.com/watch?v=EouTckK3Cl8
-
 import React, { Component } from 'react';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 
@@ -34,7 +32,6 @@ export class MapContainer extends Component {
                 <Marker onClick={this.onMarkerClick}
                     name={'Current location'} 
                     position={{lat: this.props.lat, lng: this.props.lng}} />
-                    
 
                 <InfoWindow onClose={this.onInfoWindowClose}>
 
@@ -43,6 +40,8 @@ export class MapContainer extends Component {
         );
     }
 }
+
+
 
 export default GoogleApiWrapper({
     apiKey: 'AIzaSyAKS1NPktBvX4_MRUfZeUawdLXWAFASLKE'

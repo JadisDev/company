@@ -8,7 +8,6 @@ import ListCompany from '../pages/ListCompany'
 class AuthOrApp extends Component {
 
     componentWillMount() {
-        console.log(this.props)
         if (this.props.auth.user) {
             this.props.dispatchValidateToken(this.props.auth.user.token)
         }
