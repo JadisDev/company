@@ -1,7 +1,6 @@
 import React from 'react';
 import Col from 'react-bootstrap/Col'
 import Form from "react-bootstrap/Form"
-// import Button from "react-bootstrap/Button"
 
 import Label from '../components/Label'
 import Input from '../components/Input'
@@ -9,33 +8,41 @@ import Input from '../components/Input'
 import Button from '../components/Button'
 import { Formik } from 'formik';
 import * as yup from 'yup';
-
-// import { Container } from './styles';
+import {connect} from 'react-redux'
+import {signup} from '../auth/authAction'
+import { useHistory } from 'react-router-dom'
+import { toastr } from 'react-redux-toastr'
 
 const SiginUp = (props) => {
 
     const schema = yup.object({
         name: yup.string().min(3, 'Nome muito curto').required('Obrigatório'),
-        username: yup.string().min(3, 'Login muito curto').required('Obrigatório'),
+        login: yup.string().min(3, 'Login muito curto').required('Obrigatório'),
         password: yup.string().min(3, 'Senha muito curto').required('Obrigatório'),
         confirmPassword: yup.string()
                         .oneOf([yup.ref('password'), null], 'Senha não conferi')
                         .required('Confirmação da senha é obrigatória'),
     });
 
-
+    
+    const {validToken} = props
+    console.log(validToken)
+    const history = useHistory()
+    if (validToken) {
+        history.push('/')
+        toastr.success('Parabéns', 'Se cadastro foi efetuado com sucesso')
+    }
     return (
         <Formik
             validationSchema={schema}
             onSubmit={values => {
-                // same shape as initial values
-                console.log(values);
+                props.dispatchSiginUp(values)
             }}
             initialValues={{
-                name: '',
-                username: '',
-                password: '',
-                confirmPassword: ''
+                name: 'Jadis da Silva Jale',
+                login: 'jsj',
+                password: '112233',
+                confirmPassword: '112233'
             }}
         >
             {({
@@ -73,15 +80,15 @@ const SiginUp = (props) => {
                                     <Input
                                         type="text"
                                         placeholder="Informe seu login"
-                                        name="username"
+                                        name="login"
                                         onChange={handleChange}
-                                        isValid={touched.username && !errors.username}
-                                        isInvalid={!!errors.username}
-                                        value={values.username}                                        
+                                        isValid={touched.login && !errors.login}
+                                        isInvalid={!!errors.login}
+                                        value={values.login}
                                     >
                                     </Input>
                                     <Form.Control.Feedback type="invalid">
-                                        {errors.username}
+                                        {errors.login}
                                     </Form.Control.Feedback>
                                     <Form.Control.Feedback >Tudo ok!</Form.Control.Feedback>
                                 </Form.Group>
@@ -96,7 +103,7 @@ const SiginUp = (props) => {
                                         onChange={handleChange}
                                         isValid={touched.password && !errors.password}
                                         isInvalid={!!errors.password}
-                                        value={values.password}                                    
+                                        value={values.password}
                                     >
                                     </Input>
                                     <Form.Control.Feedback type="invalid">
@@ -113,7 +120,7 @@ const SiginUp = (props) => {
                                         onChange={handleChange}
                                         isValid={touched.confirmPassword && !errors.confirmPassword}
                                         isInvalid={!!errors.confirmPassword}
-                                        value={values.confirmPassword}                                    
+                                        value={values.confirmPassword}
                                     >
                                     </Input>
                                     <Form.Control.Feedback type="invalid">
@@ -137,4 +144,19 @@ const SiginUp = (props) => {
     )
 }
 
-export default SiginUp
+function mapStateToProp(state) {
+    return {
+        validToken: state.auth.validToken,
+    }
+}
+
+function mapDispatchToProp(dispatch) {
+    return {
+        dispatchSiginUp(values) {
+            const actionSiginUp = signup(values)
+            dispatch(actionSiginUp)
+        }
+    }
+}
+
+export default connect(mapStateToProp, mapDispatchToProp)(SiginUp)

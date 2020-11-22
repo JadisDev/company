@@ -6,7 +6,7 @@ import ModalSaveCompany from './ModalNewCompany'
 import {connect} from 'react-redux'
 import { logout } from '../auth/authAction'
 import { propTypes } from 'react-bootstrap/esm/Image';
-
+import User from '../components/User'
 
 const ListCompany = (props) => {
 
@@ -96,6 +96,8 @@ const ListCompany = (props) => {
 
     return (
         <div>
+
+            <User></User>
 
             <div className="d-flex justify-content-end">
                 <div className="p-2 col-example text-left">
