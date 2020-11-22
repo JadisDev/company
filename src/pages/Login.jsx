@@ -11,7 +11,6 @@ import Button from '../components/Button'
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import {connect} from 'react-redux'
-import { reduxForm, Field } from 'redux-form'
 
 const Login = (props) => {
 

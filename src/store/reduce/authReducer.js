@@ -8,11 +8,10 @@ const INITIAL_STATE = {
 }
 
 export default (state = INITIAL_STATE, action) => {
-
-    console.log(action.payload)
-
     switch (action.type) {
         case TOKEN_VALIDATED:
+
+            console.log('TOKEN_VALIDATED', action.payload)
             if (action.payload) {
                 return { ...state, validToken: true }
             } else {
@@ -20,6 +19,7 @@ export default (state = INITIAL_STATE, action) => {
                 return { ...state, validToken: false, user: null }
             }
         case USER_FETCHED:
+            console.log('USER_FETCHED', action.payload)
             localStorage.setItem(userKey, JSON.stringify(action.payload))
             return { ...state, user: action.payload, validToken: true }
         default:

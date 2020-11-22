@@ -16,8 +16,7 @@ function submit(values, url) {
     return dispatch => {
         axios.post(url, values)
         .then(resp => {
-            console.log(resp.data)
-            dispatch({ type: TOKEN_VALIDATED, payload: resp.data })
+            dispatch({ type: USER_FETCHED, payload: resp.data })
         })
         .catch(e => {
             e.response.data.errors.forEach(
@@ -33,6 +32,7 @@ export function logout() {
 export function validateToken(token) {
     return dispatch => {
         if (token) {
+            console.warn('O jadis')
             axios.post(`${consts.OAPI_URL}/validateToken`, { token })
                 .then(resp => {
                     dispatch({ type: TOKEN_VALIDATED, payload: resp.data.valid })
