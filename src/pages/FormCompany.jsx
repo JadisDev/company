@@ -6,7 +6,6 @@ import Input from '../components/Input'
 import Button from '../components/Button'
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import MapContainer from '../components/Map'
 import Address from '../components/Address'
 
 const FormCompany = (props) => {

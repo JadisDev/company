@@ -99,7 +99,7 @@ const ListCompany = () => {
                         type="submit"
                         variant="success"
                         size="sm"
-                        action={() => handleNewShow()}
+                        action={() => newCompany()}
                         name="Adicionar nova empresa"
                         style={{}}
                     >

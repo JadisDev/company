@@ -2,7 +2,7 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import Col from 'react-bootstrap/Col'
 import Form from "react-bootstrap/Form"
-// import Button from "react-bootstrap/Button"
+import { login } from '../auth/authAction'
 
 import Label from '../components/Label'
 import Input from '../components/Input'
@@ -10,13 +10,15 @@ import Input from '../components/Input'
 import Button from '../components/Button'
 import { Formik } from 'formik';
 import * as yup from 'yup';
+import {connect} from 'react-redux'
+import { reduxForm, Field } from 'redux-form'
 
 const Login = (props) => {
 
     const history = useHistory()
 
     const schema = yup.object({
-        username: yup.string().min(3, 'Login muito curto').required('Obrigatório'),
+        login: yup.string().min(3, 'Login muito curto').required('Obrigatório'),
         password: yup.string().min(3, 'Senha muito curto').required('Obrigatório'),
     });
 
@@ -26,11 +28,11 @@ const Login = (props) => {
             validationSchema={schema}
             onSubmit={values => {
                 // same shape as initial values
-                console.log(values);
+                props.submitLogin(values)
             }}
             initialValues={{
-                username: '',
-                password: '',
+                login: 'jsj',
+                password: '112233',
             }}
         >
             {({
@@ -51,15 +53,15 @@ const Login = (props) => {
                                     <Input
                                         type="text"
                                         placeholder="Informe seu login"
-                                        name="username"
+                                        name="login"
                                         onChange={handleChange}
-                                        isValid={touched.username && !errors.username}
-                                        isInvalid={!!errors.username}
-                                        value={values.username}
+                                        isValid={touched.login && !errors.login}
+                                        isInvalid={!!errors.login}
+                                        value={values.login}
                                     >
                                     </Input>
                                     <Form.Control.Feedback type="invalid">
-                                        {errors.username}
+                                        {errors.login}
                                     </Form.Control.Feedback>
                                     <Form.Control.Feedback >Tudo ok!</Form.Control.Feedback>
                                 </Form.Group>
@@ -105,4 +107,13 @@ const Login = (props) => {
     )
 }
 
-export default Login
+function mapDispatchProp(dispatch) {
+    return {
+        submitLogin(values) {
+            const actionLogin = login(values)
+            dispatch(actionLogin)
+        }
+    }
+}
+
+export default connect(null, mapDispatchProp)(Login)

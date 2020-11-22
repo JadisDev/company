@@ -1,6 +1,5 @@
 import React from 'react'
 import Modal from 'react-bootstrap/Modal'
-import Button from './../components/Button'
 import FormCompany from './../pages/FormCompany'
 
 const ModalEditCompany = (props) => {
