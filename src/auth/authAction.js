@@ -32,8 +32,7 @@ export function logout() {
 export function validateToken(token) {
     return dispatch => {
         if (token) {
-            console.warn('O jadis')
-            axios.post(`${consts.OAPI_URL}/validateToken`, { token })
+            axios.post(`${consts.OAPI_URL}/validate-token`, { token })
                 .then(resp => {
                     dispatch({ type: TOKEN_VALIDATED, payload: resp.data.valid })
                 })
