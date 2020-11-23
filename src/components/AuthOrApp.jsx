@@ -15,7 +15,8 @@ class AuthOrApp extends Component {
     render() {
         const { user, validToken } = this.props.auth
         if (user && validToken) {
-            axios.defaults.headers.common['authorization'] = user.token
+            console.log(user.token)
+            axios.defaults.headers.common['Authorization'] = 'Bearer ' + user.token
             return <ListCompany></ListCompany>
         } else if (!user && !validToken) {
             return <Login />

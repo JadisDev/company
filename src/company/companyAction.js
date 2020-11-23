@@ -1,7 +1,8 @@
 import { toastr } from 'react-redux-toastr'
 import axios from 'axios'
 import consts from '../const'
-import { INITIAL_COORDENATE } from '../store/action/actionsType'
+import { INITIAL_COORDENATE, COMPANIES } from '../store/action/actionsType'
+import { useCallback } from 'react'
 
 export function saveCompany(values) {
 
@@ -14,22 +15,20 @@ export function saveCompany(values) {
         })
         .catch(e => {
             console.log(e);
-            toastr.error('Nova empresa', 'Todos os dados foram salvos com sucesso')
+            toastr.error('Nova empresa', 'Erro ao cadastrar uma nova empresa')
         })
     }
 }
 
-export function getCompany() {
-
-    return dispatch => {
+export function getCompanies(callback) {
+    // return dispatch => {
         axios.get(`${consts.API_URL}/company`)
         .then(resp => {
-            console.log(resp)
-            dispatch({ type: INITIAL_COORDENATE, payload: {} })
+            return resp.data.data
         })
         .catch(e => {
             console.log(e);
-            toastr.error('Nova empresa', 'Todos os dados foram salvos com sucesso')
+            toastr.error('Nova empresa', 'Erro ao recuperar a lista de empresas')
         })
-    }
+    // }
 }

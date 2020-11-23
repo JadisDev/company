@@ -1,22 +1,20 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import DataTable from 'react-data-table-component';
 import Button from '../components/Button'
 import ModalEditCompany from './ModalEditCompany'
 import ModalSaveCompany from './ModalNewCompany'
 import { connect } from 'react-redux'
 import { logout } from '../auth/authAction'
-import { propTypes } from 'react-bootstrap/esm/Image';
 import User from '../components/User'
-import {getCompany} from '../company/companyAction'
+import { getCompanies } from '../company/companyAction'
 
 const ListCompany = (props) => {
 
-    
-
-    useEffect(() => {
-        props.getCompanys()
-        console.log('teste')
-    });
+    const data = [
+        { "name": "Empresa tal", "cnpj": "12312312312312", "id": 1 },
+        { "name": "Empresa tal", "cnpj": "12312312312312", "id": 2 },
+        { "name": "Empresa tal", "cnpj": "12312312312312", "id": 3 }
+    ]
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -46,7 +44,7 @@ const ListCompany = (props) => {
     const columns = [
         {
             name: 'Empresa',
-            selector: 'company',
+            selector: 'name',
         },
         {
             name: 'CNPJ',
@@ -95,12 +93,6 @@ const ListCompany = (props) => {
             </div>
         },
     ];
-
-    const data = [
-        { "company": "Empresa tal", "cnpj": "12312312312312", "id": 1 },
-        { "company": "Empresa tal", "cnpj": "12312312312312", "id": 2 },
-        { "company": "Empresa tal", "cnpj": "12312312312312", "id": 3 }
-    ]
 
     return (
         <div>
@@ -155,18 +147,19 @@ const ListCompany = (props) => {
     )
 }
 
+function mapStateToProps(state) {
+    return {
+        // teste: state.companies
+    }
+}
+
 function mapDispatchProp(dispatch) {
     return {
         dispatchLogout() {
             const actionLogin = logout()
             dispatch(actionLogin)
-        },
-
-        getCompanys() {
-            const actionCompany = getCompany()
-            dispatch(actionCompany)
         }
     }
 }
 
-export default connect(null, mapDispatchProp)(ListCompany)
+export default connect(mapStateToProps, mapDispatchProp)(ListCompany)
