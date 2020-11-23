@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import DataTable from 'react-data-table-component';
 import Button from '../components/Button'
 import ModalEditCompany from './ModalEditCompany'
@@ -6,15 +6,29 @@ import ModalSaveCompany from './ModalNewCompany'
 import { connect } from 'react-redux'
 import { logout } from '../auth/authAction'
 import User from '../components/User'
-import { getCompanies } from '../company/companyAction'
+import consts from '../const'
+import axios from 'axios'
+import { toastr } from 'react-redux-toastr'
+import {deleteCompany, getCompanyByCNPJ} from '../company/companyAction'
 
 const ListCompany = (props) => {
 
-    const data = [
-        { "name": "Empresa tal", "cnpj": "12312312312312", "id": 1 },
-        { "name": "Empresa tal", "cnpj": "12312312312312", "id": 2 },
-        { "name": "Empresa tal", "cnpj": "12312312312312", "id": 3 }
-    ]
+    const [companies, setCompanies] = useState(1);
+
+    useEffect(() => {
+        loadCompanies()
+        // return () => {} executa ao desmontar o componente
+    }, [props.companies]);
+
+    function loadCompanies() {
+        axios.get(`${consts.API_URL}/company`)
+            .then(resp => {
+                setCompanies(resp.data.data)
+            })
+            .catch(e => {
+                toastr.error('Nova empresa', e.message)
+            })
+    }
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -28,13 +42,14 @@ const ListCompany = (props) => {
         handleNewShow();
     }
 
-    const editCompany = (id) => {
-        handleShow();
-        console.warn(id);
+    const editCompany = (cnpj) => {
+        console.warn(cnpj);
+        props.dispatchGetCompany(cnpj)
+        handleShow()
     }
 
-    const removeCompany = (id) => {
-        console.warn(id);
+    const removeCompany = (cnpj) => {
+        props.dispatchRemoveCompany(cnpj)
     }
 
     const mapCompany = (id) => {
@@ -53,12 +68,12 @@ const ListCompany = (props) => {
         {
             name: 'Editar',
             button: true,
-            cell: row => <div key={row.id}>
+            cell: row => <div key={row._id}>
                 <Button
                     type="button"
                     variant="primary"
                     size="sm"
-                    action={() => editCompany(row.id)}
+                    action={() => editCompany(row.cnpj)}
                     name="Editar"
                 >
                 </Button>
@@ -67,12 +82,12 @@ const ListCompany = (props) => {
         {
             name: 'Remover',
             button: true,
-            cell: row => <div key={row.id}>
+            cell: row => <div key={row._id}>
                 <Button
                     type="button"
                     variant="danger"
-                    size="sm"
-                    action={() => removeCompany(row.id)}
+                    size="sm" getCompanies
+                    action={() => removeCompany(row.cnpj)}
                     name="Remover"
                 >
                 </Button>
@@ -109,6 +124,7 @@ const ListCompany = (props) => {
                         name="Adicionar nova empresa"
                         style={{}}
                     >
+                        
                     </Button>
                 </div>
                 <div className="p-2 col-example text-left">
@@ -127,7 +143,7 @@ const ListCompany = (props) => {
             <DataTable
                 title="Lista - Empresas"
                 columns={columns}
-                data={data}
+                data={companies}
                 pagination
             />
 
@@ -149,7 +165,7 @@ const ListCompany = (props) => {
 
 function mapStateToProps(state) {
     return {
-        // teste: state.companies
+        companies: state.companies
     }
 }
 
@@ -158,6 +174,14 @@ function mapDispatchProp(dispatch) {
         dispatchLogout() {
             const actionLogin = logout()
             dispatch(actionLogin)
+        },
+        dispatchRemoveCompany(cnpj) {
+            const actionRemove = deleteCompany(cnpj)
+            dispatch(actionRemove)
+        },
+        dispatchGetCompany(cnpj) {
+            const actionGetCompany = getCompanyByCNPJ(cnpj)
+            dispatch(actionGetCompany)
         }
     }
 }

@@ -8,6 +8,8 @@ const API_KEY = "AIzaSyD-Pid2nVCHl5cQxM1E6OJFKl17daEv0fs"  // how to get key - s
 
 const Address = (props) => {
 
+    const lat_edit = props.companies.companies.lat || null
+    const lng_edit = props.companies.companies.lng || null
     const {lat, lng} = props
 
     return (
@@ -25,8 +27,8 @@ const Address = (props) => {
             </div>
 
             <MapContainer
-                lat={lat}
-                lng={lng}
+                lat={lat_edit || lat}
+                lng={lng_edit || lng}
             >
 
             </MapContainer>
@@ -37,7 +39,8 @@ const Address = (props) => {
 function mapStateToProp(state) {
     return {
         lat: state.coordenate.lat,
-        lng: state.coordenate.lng
+        lng: state.coordenate.lng,
+        companies: state.companies
     }
 }
 function mapsDipatchToProp (dispatch) {

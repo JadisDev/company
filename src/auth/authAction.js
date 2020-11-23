@@ -19,8 +19,8 @@ function submit(values, url) {
             dispatch({ type: USER_FETCHED, payload: resp.data })
         })
         .catch(e => {
-            // e.response.data.errors.forEach(
-            //     error => toastr.error('Erro', error))
+            e.response.data.errors.forEach(
+                error => toastr.error('Erro', error))
         })
     }
 }

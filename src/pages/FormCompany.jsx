@@ -17,6 +17,13 @@ const FormCompany = (props) => {
         cnpj: yup.string().required('Obrigatório').min(14, 'cnpj deve ter 14 caracters').max(14, 'cnpj deve ter 14 caracters')
     });
 
+    console.log(props.companies.companies)
+    const {cnpj, name} = props.companies.companies
+    const lat_edit = props.companies.companies.lat || null
+    const lng_edit = props.companies.companies.lng || null
+
+    console.log(cnpj, name)
+
     const {lat, lng} = props
 
     return (
@@ -24,8 +31,10 @@ const FormCompany = (props) => {
             <Formik
                 validationSchema={schema}
                 onSubmit={values => {
-                    values['lat'] = lat
-                    values['lng'] = lng
+                    // values['lat'] = lat
+                    // values['lng'] = lng
+                    values['lat'] = 1
+                    values['lng'] = 1
                     props.dispatchSaveCompany(values)
                 }}
                 initialValues={{
@@ -54,7 +63,7 @@ const FormCompany = (props) => {
                                             onChange={handleChange}
                                             isValid={touched.name && !errors.name}
                                             isInvalid={!!errors.name}
-                                            value={values.name}
+                                            value={name || values.name}
                                         >
                                         </Input>
                                         <Form.Control.Feedback type="invalid">
@@ -71,8 +80,8 @@ const FormCompany = (props) => {
                                             onChange={handleChange}
                                             isValid={touched.cnpj && !errors.cnpj}
                                             isInvalid={!!errors.cnpj}
-                                            value={values.cnpj}
-                                        >
+                                            value={cnpj || values.cnpj}
+                                            companies   >
                                         </Input>
                                         <Form.Control.Feedback type="invalid">
                                             {errors.cnpj}
@@ -106,7 +115,8 @@ const FormCompany = (props) => {
 function mapStateToProp(state) {
     return {
         lat: state.coordenate.lat,
-        lng: state.coordenate.lng
+        lng: state.coordenate.lng,
+        companies: state.companies
     }
 }
 
