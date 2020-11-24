@@ -3,6 +3,8 @@ import Form from 'react-bootstrap/Form'
 
 const Input = (props) => {
 
+    console.log('props.edit', props)
+
     return (
         <Form.Control
             className="mb-2"
@@ -13,6 +15,7 @@ const Input = (props) => {
             isValid={props.isValid}
             isInvalid={props.isInvalid}
             value={props.value}
+            readOnly={props.readOnly}
         />
     )
 }

@@ -9,7 +9,7 @@ import User from '../components/User'
 import consts from '../const'
 import axios from 'axios'
 import { toastr } from 'react-redux-toastr'
-import {deleteCompany, getCompanyByCNPJ} from '../company/companyAction'
+import {deleteCompany, getCompanyByCNPJ, getCompanyDefault} from '../company/companyAction'
 
 const ListCompany = (props) => {
 
@@ -39,13 +39,12 @@ const ListCompany = (props) => {
     const handleNewShow = () => setNewModal(true);
 
     const newCompany = () => {
-        handleNewShow();
+        props.dispatchCompanyDefault(handleNewShow)
     }
 
     const editCompany = (cnpj) => {
         console.warn(cnpj);
-        props.dispatchGetCompany(cnpj)
-        handleShow()
+        props.dispatchGetCompany(cnpj, handleShow)
     }
 
     const removeCompany = (cnpj) => {
@@ -124,7 +123,7 @@ const ListCompany = (props) => {
                         name="Adicionar nova empresa"
                         style={{}}
                     >
-                        
+
                     </Button>
                 </div>
                 <div className="p-2 col-example text-left">
@@ -179,9 +178,13 @@ function mapDispatchProp(dispatch) {
             const actionRemove = deleteCompany(cnpj)
             dispatch(actionRemove)
         },
-        dispatchGetCompany(cnpj) {
-            const actionGetCompany = getCompanyByCNPJ(cnpj)
+        dispatchGetCompany(cnpj, action) {
+            const actionGetCompany = getCompanyByCNPJ(cnpj, action)
             dispatch(actionGetCompany)
+        },
+        dispatchCompanyDefault(action) {
+            const actionCompanyDefault = getCompanyDefault(action)
+            dispatch(actionCompanyDefault)
         }
     }
 }

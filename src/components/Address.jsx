@@ -8,8 +8,8 @@ const API_KEY = "AIzaSyD-Pid2nVCHl5cQxM1E6OJFKl17daEv0fs"  // how to get key - s
 
 const Address = (props) => {
 
-    const lat_edit = props.companies.companies.lat || null
-    const lng_edit = props.companies.companies.lng || null
+    const lat_edit = props.companies.companies ? props.companies.companies.lat : null
+    const lng_edit = props.companies.companies ? props.companies.companies.lng : null || null
     const {lat, lng} = props
 
     return (

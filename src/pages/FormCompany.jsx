@@ -8,7 +8,7 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import Address from '../components/Address'
 import {connect} from 'react-redux'
-import {saveCompany} from '../company/companyAction'
+import {saveCompany, updateCompany} from '../company/companyAction'
 
 const FormCompany = (props) => {
 
@@ -17,29 +17,33 @@ const FormCompany = (props) => {
         cnpj: yup.string().required('Obrigatório').min(14, 'cnpj deve ter 14 caracters').max(14, 'cnpj deve ter 14 caracters')
     });
 
-    console.log(props.companies.companies)
-    const {cnpj, name} = props.companies.companies
-    const lat_edit = props.companies.companies.lat || null
-    const lng_edit = props.companies.companies.lng || null
+    const cnpj = props.companies.companies ? props.companies.companies.cnpj : null
+    const name = props.companies.companies ? props.companies.companies.name : null
 
-    console.log(cnpj, name)
+    // const lat_edit = props.companies.companies ? props.companies.companies.lat : null
+    // const lng_edit = props.companies.companies ? props.companies.companies.lng : null
 
     const {lat, lng} = props
+
+    console.log(props)
 
     return (
         <div>
             <Formik
                 validationSchema={schema}
                 onSubmit={values => {
-                    // values['lat'] = lat
-                    // values['lng'] = lng
-                    values['lat'] = 1
-                    values['lng'] = 1
-                    props.dispatchSaveCompany(values)
+                    values['lat'] = lat
+                    values['lng'] = lng
+
+                    if (props.readOnly) {
+                        props.dispatchUpdateCompany(values)
+                    } else {
+                        props.dispatchSaveCompany(values)
+                    }
                 }}
                 initialValues={{
-                    name: '',
-                    cnpj: '',
+                    name: name,
+                    cnpj: cnpj,
                 }}
             >
                 {({
@@ -63,7 +67,7 @@ const FormCompany = (props) => {
                                             onChange={handleChange}
                                             isValid={touched.name && !errors.name}
                                             isInvalid={!!errors.name}
-                                            value={name || values.name}
+                                            value={values.name}
                                         >
                                         </Input>
                                         <Form.Control.Feedback type="invalid">
@@ -80,8 +84,9 @@ const FormCompany = (props) => {
                                             onChange={handleChange}
                                             isValid={touched.cnpj && !errors.cnpj}
                                             isInvalid={!!errors.cnpj}
-                                            value={cnpj || values.cnpj}
-                                            companies   >
+                                            value={values.cnpj}
+                                            readOnly={props.readOnly}
+                                        >
                                         </Input>
                                         <Form.Control.Feedback type="invalid">
                                             {errors.cnpj}
@@ -125,6 +130,10 @@ function mapsDipatchToProp (dispatch) {
         dispatchSaveCompany(values) {
             const actioSaveCompany = saveCompany(values)
             dispatch(actioSaveCompany)
+        },
+        dispatchUpdateCompany(values) {
+            const actionUpdateCompany = updateCompany(values)
+            dispatch(actionUpdateCompany)
         }
     }
 }
