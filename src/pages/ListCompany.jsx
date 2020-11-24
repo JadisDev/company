@@ -3,13 +3,14 @@ import DataTable from 'react-data-table-component';
 import Button from '../components/Button'
 import ModalEditCompany from './ModalEditCompany'
 import ModalSaveCompany from './ModalNewCompany'
+import ModalViewCompany from './ModalViewCompanies'
 import { connect } from 'react-redux'
 import { logout } from '../auth/authAction'
 import User from '../components/User'
 import consts from '../const'
 import axios from 'axios'
 import { toastr } from 'react-redux-toastr'
-import {deleteCompany, getCompanyByCNPJ, getCompanyDefault} from '../company/companyAction'
+import { deleteCompany, getCompanyByCNPJ, getCompanyDefault } from '../company/companyAction'
 
 const ListCompany = (props) => {
 
@@ -38,6 +39,10 @@ const ListCompany = (props) => {
     const handleNewClose = () => setNewModal(false);
     const handleNewShow = () => setNewModal(true);
 
+    const [showMapModal, setMapModal] = useState(false);
+    const handleShowMapModalClose = () => setMapModal(false);
+    const handleShowMapModalShow = () => setMapModal(true);
+
     const newCompany = () => {
         props.dispatchCompanyDefault(handleNewShow)
     }
@@ -49,6 +54,10 @@ const ListCompany = (props) => {
 
     const removeCompany = (cnpj) => {
         props.dispatchRemoveCompany(cnpj)
+    }
+
+    function seeCompaniesMap() {
+        handleShowMapModalShow()
     }
 
     const columns = [
@@ -84,15 +93,11 @@ const ListCompany = (props) => {
                     size="sm" getCompanies
                     action={() => removeCompany(row.cnpj)}
                     name="Remover"
-                >
+                >showMapModal
                 </Button>
             </div>
         }
     ];
-
-    function seeCompaniesMap() {
-        console.log('Ver mapa')
-    }
 
     return (
         <div>
@@ -154,6 +159,12 @@ const ListCompany = (props) => {
                 showNewModal={showNewModal}
                 handleNewClose={handleNewClose}
                 title="Cadastrar nova empresa"
+            />
+
+            <ModalViewCompany
+                showNewModal={showMapModal}
+                handleNewClose={handleShowMapModalClose}
+                title="Mapa de empresas"
             />
 
         </div>

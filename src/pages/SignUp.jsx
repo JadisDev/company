@@ -137,6 +137,14 @@ const SiginUp = (props) => {
                                 name="Cadastre-se"
                             >
                             </Button>
+                            <Button
+                                type="submit"
+                                variant="outline-primary"
+                                size="lg"
+                                action={() => { history.push('/') }}
+                                name="Voltar"
+                            >
+                            </Button>
                         </Form>
                     </div>
                 )}

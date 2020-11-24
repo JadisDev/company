@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
+import consts from '../const'
+import axios from 'axios'
+import { toastr } from 'react-redux-toastr'
 
 const mapStyles = {
     width: '98%',
@@ -10,6 +13,26 @@ export class MapContainer extends Component {
 
     constructor(props) {
         super(props)
+
+        this.state = {
+            coordenates: []
+        }
+
+        console.log(props)
+    }
+
+    componentDidMount() {
+        this.getCompanies();
+    }
+
+    getCompanies() {
+        axios.get(`${consts.API_URL}/company`)
+            .then(resp => {
+                this.setState({ coordenates: resp.data.data })
+            })
+            .catch(e => {
+                toastr.error('Nova empresa', e.message)
+            })
     }
 
     render() {
@@ -24,15 +47,18 @@ export class MapContainer extends Component {
                     lng: this.props.lng
                 }}
                 yesIWantToUseGoogleMapApiInternals
-                onClick={this.onMapClicked}
+                onClick={() => { }}
             >
+
                 <Marker onClick={this.onMarkerClick}
-                    name={'Current location'} 
-                    position={{lat: this.props.lat, lng: this.props.lng}} />
+                    name={'Current location'}
+                    position={{ lat: this.props.lat, lng: this.props.lng }} />
 
-                <InfoWindow onClose={this.onInfoWindowClose}>
+                {this.props.list && this.state.coordenates.map((coordenate, i) => {
+                    console.log(coordenate)
+                    return (<Marker key={i} position={{ lat: coordenate.lat, lng: coordenate.lng }} />)
+                })}
 
-                </InfoWindow>
             </Map>
         );
     }
