@@ -4,12 +4,12 @@ import consts from '../const'
 import axios from 'axios'
 import { toastr } from 'react-redux-toastr'
 
-const mapStyles = {
-    width: '98%',
-    height: '226px'
-};
-
 export class MapContainer extends Component {
+
+    mapStyles = {
+        width: '98%',
+        height: this.props.heigth
+    };
 
     constructor(props) {
         super(props)
@@ -74,7 +74,7 @@ export class MapContainer extends Component {
             <Map
                 google={this.props.google}
                 zoom={1}
-                style={mapStyles}
+                style={this.mapStyles}
                 center={{
                     lat: this.props.lat,
                     lng: this.props.lng

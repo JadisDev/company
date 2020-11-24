@@ -26,9 +26,11 @@ const Address = (props) => {
                     onChange={(e) => { props.dispatchCoodenate(e) }} />
             </div>
 
-            <MapContainer list={false}
+            <MapContainer 
+                list={false}
                 lat={lat_edit || lat}
                 lng={lng_edit || lng}
+                heigth="220px"
             >
 
             </MapContainer>

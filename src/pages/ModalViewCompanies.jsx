@@ -10,8 +10,8 @@ const ModalShowCompanies = (props) => {
                 <Modal.Header closeButton>
                     <Modal.Title>{props.title}</Modal.Title>
                 </Modal.Header>
-                <Modal.Body style={{height: "250px", width:"780px"}}>
-                    <MapContainer list={true} lat={1} lng={1}></MapContainer>
+                <Modal.Body style={{height: "600px", width:"780px"}}>
+                    <MapContainer list={true} lat={1} lng={1} heigth="90%"></MapContainer>
                 </Modal.Body>
             </Modal>
         </div>
