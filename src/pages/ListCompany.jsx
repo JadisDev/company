@@ -90,6 +90,10 @@ const ListCompany = (props) => {
         }
     ];
 
+    function seeCompaniesMap() {
+        console.log('Ver mapa')
+    }
+
     return (
         <div>
 
@@ -103,6 +107,18 @@ const ListCompany = (props) => {
                         size="sm"
                         action={() => newCompany()}
                         name="Adicionar nova empresa"
+                        style={{}}
+                    >
+
+                    </Button>
+                </div>
+                <div className="p-2 col-example text-left">
+                    <Button
+                        type="button"
+                        variant="warning"
+                        size="sm"
+                        action={() => seeCompaniesMap()}
+                        name="Mapa"
                         style={{}}
                     >
 
