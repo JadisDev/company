@@ -53,7 +53,10 @@ const ListCompany = (props) => {
     }
 
     const removeCompany = (cnpj) => {
-        props.dispatchRemoveCompany(cnpj)
+        var resultado = window.confirm("Deseja realmente remover?");
+        if (resultado) {
+            props.dispatchRemoveCompany(cnpj)
+        }
     }
 
     function seeCompaniesMap() {
