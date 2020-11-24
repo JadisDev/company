@@ -6,8 +6,6 @@ import { INITIAL_COORDENATE, COMPANIES, COMPANY_EDITE } from '../store/action/ac
 
 export function updateCompany(values) {
 
-    console.log(values)
-
     return dispatch => {
         axios.put(`${consts.API_URL}/company`, values)
             .then(resp => {
@@ -24,8 +22,6 @@ export function updateCompany(values) {
 }
 
 export function saveCompany(values) {
-
-    console.log(values)
 
     return dispatch => {
         axios.post(`${consts.API_URL}/company`, values)

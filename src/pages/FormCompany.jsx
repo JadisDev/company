@@ -25,8 +25,6 @@ const FormCompany = (props) => {
 
     const {lat, lng} = props
 
-    console.log(props)
-
     return (
         <div>
             <Formik

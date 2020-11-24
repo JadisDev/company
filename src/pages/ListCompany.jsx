@@ -51,10 +51,6 @@ const ListCompany = (props) => {
         props.dispatchRemoveCompany(cnpj)
     }
 
-    const mapCompany = (id) => {
-        console.warn(id);
-    }
-
     const columns = [
         {
             name: 'Empresa',
@@ -91,21 +87,7 @@ const ListCompany = (props) => {
                 >
                 </Button>
             </div>
-        },
-        {
-            name: 'Mapa',
-            button: true,
-            cell: row => <div key={row.id}>
-                <Button
-                    type="button"
-                    variant="warning"
-                    size="sm"
-                    action={() => mapCompany(row.id)}
-                    name="Mapa"
-                >
-                </Button>
-            </div>
-        },
+        }
     ];
 
     return (

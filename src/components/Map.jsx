@@ -14,9 +14,6 @@ export class MapContainer extends Component {
 
     render() {
 
-        console.log(this.props.lat)
-        console.log(this.props.lng)
-
         return (
             <Map
                 google={this.props.google}

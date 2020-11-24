@@ -3,8 +3,6 @@ import Form from 'react-bootstrap/Form'
 
 const Input = (props) => {
 
-    console.log('props.edit', props)
-
     return (
         <Form.Control
             className="mb-2"
