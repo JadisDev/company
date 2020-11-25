@@ -11,7 +11,7 @@ const ModalSaveCompany = (props) => {
                     <Modal.Title>{props.title}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body style={{}}>
-                    <FormCompany action="Cadastrar nova empresa" readOnly={false}/>
+                    <FormCompany action="Cadastrar nova empresa" readOnly={false} onHide={props.handleNewClose}/>
                 </Modal.Body>
             </Modal>
         </div>

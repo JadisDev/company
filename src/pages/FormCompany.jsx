@@ -38,6 +38,7 @@ const FormCompany = (props) => {
                     } else {
                         props.dispatchSaveCompany(values)
                     }
+                    props.onHide()
                 }}
                 initialValues={{
                     name: name,
