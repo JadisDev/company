@@ -2,12 +2,13 @@ import React from 'react'
 import {connect} from 'react-redux'
 
 const User = (props) => {
-    const {name, login} = props.user.user
+    console.log(props)
+    // const {name, login} = props.user.user
     return (
         <div>
-            <strong>Bem vindo(a): {name}</strong>
+            <strong>Bem vindo(a):</strong>
             <br></br>
-            <span>Login: {login}</span>
+            <span>Login:</span>
         </div>
     )
 }

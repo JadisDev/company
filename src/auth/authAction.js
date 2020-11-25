@@ -20,8 +20,7 @@ function submit(values, url) {
         })
         .catch(e => {
             console.log(e)
-            // e.response.data.errors.forEach(
-            //     error => toastr.error('Erro', error))
+            toastr.error('Erro', e.response.data.error)
         })
     }
 }

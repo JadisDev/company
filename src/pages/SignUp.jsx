@@ -9,7 +9,7 @@ import Button from '../components/Button'
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import {connect} from 'react-redux'
-import {signup} from '../auth/authAction'
+import {signup, login} from '../auth/authAction'
 import { useHistory } from 'react-router-dom'
 import { toastr } from 'react-redux-toastr'
 
@@ -163,6 +163,10 @@ function mapDispatchToProp(dispatch) {
         dispatchSiginUp(values) {
             const actionSiginUp = signup(values)
             dispatch(actionSiginUp)
+        },
+        dispatchSiginUp(values) {
+            const actionlogin = login(values)
+            dispatch(actionlogin)
         }
     }
 }
