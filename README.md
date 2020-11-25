@@ -27,6 +27,7 @@ distância entre cada uma delas.
 
 2 - git clone https://github.com/JadisDev/company.git
 
-3 - Na raiz do projeto rodar o seguinte comando: npm install
+3 - Instalar [mongo](https://www.mongodb.com/)
 
-4 - Instalar [mongo](https://www.mongodb.com/)
+4 - Na raiz do projeto rodar o seguinte comando: npm install
+
