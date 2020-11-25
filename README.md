@@ -30,13 +30,3 @@ distância entre cada uma delas.
 3 - Na raiz do projeto rodar o seguinte comando: npm install
 
 4 - Instalar [mongo](https://www.mongodb.com/)
-
-## Instalar com docker:
-
-1 - Instalar docker [linux](https://docs.docker.com/engine/install/ubuntu/) / [windows](https://docs.docker.com/docker-for-windows/install/)
-
-2 - Instalar docker composer [linux](https://docs.docker.com/compose/install/) / [windows](https://docs.docker.com/compose/install/)
-
-3 - cp .env.example .env
-
-4 - docker-compose up -d (linux)
