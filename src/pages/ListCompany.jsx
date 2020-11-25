@@ -22,7 +22,7 @@ const ListCompany = (props) => {
     }, [props.companies]);
 
     function loadCompanies() {
-        axios.get(`${consts.API_URL}/company`)
+        axios.get(`${consts.API_URL}/companies`)
             .then(resp => {
                 setCompanies(resp.data.data)
             })

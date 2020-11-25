@@ -51,7 +51,7 @@ export class MapContainer extends Component {
     }
 
     getCompanies() {
-        axios.get(`${consts.API_URL}/company`)
+        axios.get(`${consts.API_URL}/companies`)
             .then(resp => {
                 this.setState({ coordenates: resp.data.data })
                 var coordenates = []

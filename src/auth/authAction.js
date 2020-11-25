@@ -5,11 +5,11 @@ import { TOKEN_VALIDATED, USER_FETCHED } from '../store/action/actionsType'
 
 
 export function login(values) {
-    return submit(values, `${consts.OAPI_URL}/login`)
+    return submit(values, `${consts.API_URL}/sessions`)
 }
 
 export function signup(values) {
-    return submit(values, `${consts.OAPI_URL}/signup`)
+    return submit(values, `${consts.API_URL}/users`)
 }
 
 function submit(values, url) {
@@ -20,8 +20,8 @@ function submit(values, url) {
         })
         .catch(e => {
             console.log(e)
-            e.response.data.errors.forEach(
-                error => toastr.error('Erro', error))
+            // e.response.data.errors.forEach(
+            //     error => toastr.error('Erro', error))
         })
     }
 }
@@ -33,7 +33,7 @@ export function logout() {
 export function validateToken(token) {
     return dispatch => {
         if (token) {
-            axios.post(`${consts.OAPI_URL}/validate-token`, { token })
+            axios.post(`${consts.API_URL}/validate-token`, { token })
                 .then(resp => {
                     dispatch({ type: TOKEN_VALIDATED, payload: resp.data.valid })
                 })

@@ -7,7 +7,7 @@ import { INITIAL_COORDENATE, COMPANIES, COMPANY_EDITE } from '../store/action/ac
 export function updateCompany(values) {
 
     return dispatch => {
-        axios.put(`${consts.API_URL}/company`, values)
+        axios.put(`${consts.API_URL}/companies`, values)
             .then(resp => {
                 console.log(resp)
                 toastr.success('Dados atualizados com sucesso', 'Todos os dados foram atualizados')
@@ -24,7 +24,7 @@ export function updateCompany(values) {
 export function saveCompany(values) {
 
     return dispatch => {
-        axios.post(`${consts.API_URL}/company`, values)
+        axios.post(`${consts.API_URL}/companies`, values)
             .then(resp => {
                 console.log(resp)
                 toastr.success('Nova empresa', 'Todos os dados foram salvos com sucesso')
@@ -40,7 +40,7 @@ export function saveCompany(values) {
 
 export function getCompanies() {
     return dispatch => {
-        axios.get(`${consts.API_URL}/company`)
+        axios.get(`${consts.API_URL}/companies`)
             .then(resp => {
                 console.log(resp)
                 dispatch({ type: COMPANIES, payload: {} })
