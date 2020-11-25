@@ -164,10 +164,10 @@ function mapDispatchToProp(dispatch) {
             const actionSiginUp = signup(values)
             dispatch(actionSiginUp)
         },
-        dispatchSiginUp(values) {
-            const actionlogin = login(values)
-            dispatch(actionlogin)
-        }
+        // dispatchLogin(values) {
+        //     const actionlogin = login(values)
+        //     dispatch(actionlogin)
+        // }
     }
 }
 
